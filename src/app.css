@@ -1,0 +1,113 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    html,
+    body {
+        height: 100%;
+        width: 100%;
+        overflow-x: hidden;
+        font-family: theme(fontFamily.primary);
+    }
+
+    body {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        overflow-y: hidden;
+    }
+
+    i {
+        display: flex;
+        align-items: center;
+        font-size: theme(fontSize.base);
+    }
+}
+
+@layer components {
+    .skeleton {
+        @apply select-none animate-skeleton bg-gradient-to-r from-skeleton-primary via-skeleton-secondary to-skeleton-primary text-transparent bg-[length:200%_100%];
+    }
+
+    .gradient {
+        @apply bg-gradient-to-r from-light-gradient-left to-light-gradient-right;
+    }
+
+    .icon {
+        @apply text-light-icon-color cursor-pointer transition-colors;
+    }
+
+    .icon:hover {
+        @apply text-light-icon-hover
+    }
+
+    .h-fullscreen {
+        height: calc(100% - 200px - 1.5rem);
+    }
+
+    .h-content {
+        height: calc(100vh - 7.5rem);
+    }
+
+    .w-fullscreen {
+        width: calc(100% - 5rem);
+    }
+
+    .focus {
+        @apply hover:outline hover:outline-2 hover:outline-default focus:outline focus:outline-2 focus:outline-default
+    }
+
+    .clip-triangle {
+        clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    }
+
+    .mt-header {
+        margin-top: 6.5rem;
+    }
+
+    .pt-header {
+        margin-top: -3rem;
+    }
+
+    .mt-header-before {
+        margin-top: 7.75rem;
+    }
+
+    .link {
+        @apply cursor-pointer hover:opacity-80
+    }
+
+    .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+    }
+
+    .scrollbar-hide {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+
+    .w-fill {
+        width: -webkit-fill-available;
+        width: -moz-available;
+    }
+
+    .h-inherit {
+        height: inherit;
+    }
+
+    .max-w-inherit {
+        max-width: inherit;
+    }
+}
