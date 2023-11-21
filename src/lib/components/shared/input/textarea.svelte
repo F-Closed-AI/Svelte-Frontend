@@ -3,6 +3,7 @@
 
     export let skeleton: boolean = false;
     export let classList: string = "";
+    export let inputClassList: string = "";
     export let label: string = "";
     export let value: string = "";
     export let error: string[] | undefined = [];
@@ -14,7 +15,7 @@
     flex-col
     gap-2
     w-full
-    h-full
+    {classList}
 ">
     <label for={$$props.name}>
         <TextBase classList="!font-medium">{label}</TextBase>
@@ -46,7 +47,7 @@
                 hover:outline 
                 hover:outline-2
                 focus
-                {classList}
+                {inputClassList}
             "
             data-error={error?.at(0)}
             data-sveltekit-keepfocus
