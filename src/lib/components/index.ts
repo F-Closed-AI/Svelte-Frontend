@@ -2,25 +2,33 @@
 
 
 export { default as Header } from "../components/layout/header.svelte";
+export { default as TabNavigation } from "../components/layout/tabNavigation.svelte";
+export { default as TabNavigationItem } from "../components/layout/tabNavigationItem.svelte";
 export { default as Sidebar } from "../components/layout/sidebar.svelte";
+export { default as SidebarItem } from "../components/layout/sidebarItem.svelte";
 export { default as Wrapper } from "../components/layout/wrapper.svelte";
 
 /* Shared */
 
 
 // Button 
-export { default as PrimaryButton } from "../components/shared/button/primary.svelte";
-export { default as SecondaryButton } from "../components/shared/button/secondary.svelte";
-export { default as TertiaryButton } from "../components/shared/button/tertiary.svelte";
+export { default as ButtonFilter } from "../components/shared/button/filter.svelte";
+export { default as ButtonPrimary } from "../components/shared/button/primary.svelte";
+export { default as ButtonSecondary } from "../components/shared/button/secondary.svelte";
+export { default as ButtonTertiary } from "../components/shared/button/tertiary.svelte";
 
 // Card
-export { default as BannerCard } from "../components/shared/card/banner.svelte";
-export { default as NewCard } from "../components/shared/card/new.svelte";
-export { default as PreviewCard } from "../components/shared/card/preview.svelte";
-export { default as SliderCard } from "../components/shared/card/slider.svelte";
+export { default as CardBanner } from "../components/shared/card/banner.svelte";
+export { default as CardNew } from "../components/shared/card/new.svelte";
+export { default as CardPreview } from "../components/shared/card/preview.svelte";
+export { default as CardCharacter } from "./shared/card/character.svelte";
 
 // Input
 export { default as Input } from "../components/shared/input/input.svelte";
+export { default as TextArea } from "../components/shared/input/textarea.svelte";
+
+// Loading
+export { default as LoadingIcon } from "./shared/loading/icon.svelte";
 
 // Object
 export { default as Line } from "../components/shared/object/line.svelte";
