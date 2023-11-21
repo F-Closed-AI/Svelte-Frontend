@@ -49,7 +49,7 @@
     <div class="
         flex
         gap-10
-        h-max
+        h-full
         xl:flex-col
         xl:gap-20
     ">
@@ -68,10 +68,11 @@
         >
             <TextArea 
                 classList="
-                    flex-1 
+                    h-[32rem]
+                    xl:h-[14rem]
+                "
+                inputClassList="
                     !bg-light-background
-                    h-[30rem]
-                    xl:h-[15rem]
                 "
                 label="Input"
                 name="prompt"
