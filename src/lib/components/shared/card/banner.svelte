@@ -29,7 +29,7 @@
             <TextDecoration>Powered by AI</TextDecoration>
             <TextXL classList="font-medium">Start creating your own characters.</TextXL>
         </div>
-        <ButtonTertiary classList="xs:w-full xs:justify-center" link="/">
+        <ButtonTertiary classList="xs:w-full xs:justify-center" link="/library/create">
             <i class="fa-solid fa-play text-light-btn-primary-hover"></i>
             <TextSmall classList="!font-semibold">Try Now</TextSmall>
         </ButtonTertiary>
