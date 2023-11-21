@@ -1,13 +1,15 @@
 <script lang=ts>
-    import { Tooltip } from "$lib/components/index.ts";
+    import { TextSmall, Tooltip } from "$lib/components/index.ts";
 
     export let text: string = "default tooltip";
+    export let link: string = "";
+    export let active: boolean = false;
 
-    let shown: boolean = false;
+    let showTooltip: boolean = false;
 </script>
 
 <a 
-    href="/" 
+    href={link}
     class="
         flex
         items-center
@@ -22,21 +24,23 @@
         group
         hover:bg-light-btn-primary-background
         hover:text-light-btn-primary-color
+        {active && "!bg-light-btn-primary-background !text-light-btn-primary-color"}
     "
-    on:mouseenter={() => shown = true}
-    on:mouseleave={() => shown = false}
+    on:mouseenter={() => showTooltip = true}
+    on:mouseleave={() => showTooltip = false}
 >
     <div class="
             flex 
             justify-center
+            items-center
             relative
             w-8
 
         "
     >
         <slot name="icon"></slot>
-        <Tooltip {shown} classList={"hidden md:flex"}>
-            {text}
+        <Tooltip shown={showTooltip} classList={"hidden md:flex"}>
+            <TextSmall>{text}</TextSmall>
         </Tooltip>
     </div>
     <div class="
