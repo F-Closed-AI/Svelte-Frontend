@@ -1,4 +1,5 @@
 <script lang=ts>
+    import { afterNavigate } from "$app/navigation";
 	import { CardCharacter, ButtonFilter, ButtonPrimary, TextBase, TextDetail, TextLarge, TextSmall, TextXL, ButtonSecondary } from "$lib/components";
     import generated_1 from "$lib/img/generated_1.png";
     import generated_2 from "$lib/img/generated_2.png";
@@ -6,8 +7,9 @@
     import generated_4 from "$lib/img/generated_4.png";
 
     export let showType: "grid" | "lines" = "grid";
-
     export let data;
+
+    let loaded: boolean = false;
 
     const images = [generated_1, generated_2, generated_3, generated_4]
 
@@ -15,6 +17,8 @@
         const randomIndex = Math.floor(Math.random() * (images.length- 0)) + 0;
         return images[randomIndex];
     }
+
+    afterNavigate(() => loaded = true);
 </script>
 
 <div class="
@@ -41,7 +45,7 @@
                     <i class="fa-solid fa-grip-vertical icon"></i>
                 </button>
                 <button on:click={() => showType = "lines"}>
-                    <i class="fa-solid fa-grip-lines icon"></i>
+                    <i class="fa-solid fa-list"></i>
                 </button>
             </div>
         </div>
@@ -52,7 +56,8 @@
         gap-10 
     ">
         {#each data.characters as character}
-            <CardCharacter 
+            <CardCharacter
+                skeleton={!loaded} 
                 classList={
                     (showType === "grid" && data.characters.length > 3) ? "flex-grow" : ""
                 } 
