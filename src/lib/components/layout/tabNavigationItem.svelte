@@ -10,7 +10,7 @@
         transition-colors
         duration-300
         hover:text-light-text-accent
-        {active && "text-light-text-accent"}
+        {active && "!text-light-text-accent"}
     "
 >
     <slot></slot>
