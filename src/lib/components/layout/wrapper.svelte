@@ -6,6 +6,7 @@
     w-full
     max-h-full
     xs:mx-5
+    sm:mt-0
 ">
     <slot/>
 </main>
