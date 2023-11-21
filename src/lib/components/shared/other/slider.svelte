@@ -11,7 +11,7 @@
         right: boolean
     } = { left: false, right: true }
 
-    const cardWidth =150; 
+    const cardWidth = 300; 
 
     function navigateSlider(direction: number) {
         const walk = slider.scrollLeft + direction * cardWidth;
@@ -56,6 +56,7 @@
                 <button 
                     class="
                         absolute 
+                        flex
                         text-light-text-primary
                         bg-light-background
                         px-3.5
@@ -66,7 +67,7 @@
                         -translate-y-[50%]
                         cursor-pointer
                     "
-                    transition:scale
+                    transition:scale|local
                     on:click={() => navigateSlider(-1)}
                 >
                     <i class="fa-solid fa-chevron-left"></i>
@@ -84,6 +85,7 @@
                 >
                     <button 
                         class="
+                            flex
                             text-light-text-primary
                             bg-light-background
                             px-3.5
@@ -95,7 +97,7 @@
                             right-0
                             cursor-pointer
                         "
-                        transition:scale
+                        transition:scale|local
                         on:click={() => navigateSlider(1)}
                     >
                         <i class="fa-solid fa-chevron-right"></i>
@@ -112,7 +114,7 @@
                             opacity-50
                             -z-10
                         "
-                        transition:fade
+                        transition:fade|local
                     >
                     </div>
                 </div>
