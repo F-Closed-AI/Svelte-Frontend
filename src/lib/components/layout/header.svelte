@@ -12,6 +12,9 @@
     w-fullscreen
     max-w-[120rem]
     z-10
+    xs:w-fullscreen-sm
+    sm:bg-none
+    sm:mt-5
 ">
     <Logo></Logo>
     <div class="
@@ -20,6 +23,7 @@
         sm:hidden
     ">
         <Input
+            classList="!px-12"
             placeholder="Search Character..."
         >
             <i slot="icon" class="fa-solid fa-magnifying-glass"></i>
@@ -42,7 +46,7 @@
                 select-none
             ">1</span>
         </button>
-        <a href="/">
+        <a href="/settings">
             <img 
                 class="
                     w-14
