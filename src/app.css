@@ -20,6 +20,7 @@
         width: 100%;
         overflow-x: hidden;
         font-family: theme(fontFamily.primary);
+        @apply sm:bg-light-dashboard-light
     }
 
     body {
@@ -33,6 +34,7 @@
         display: flex;
         align-items: center;
         font-size: theme(fontSize.base);
+        cursor: pointer;
     }
 }
 
@@ -46,11 +48,7 @@
     }
 
     .icon {
-        @apply text-light-icon-color cursor-pointer transition-colors;
-    }
-
-    .icon:hover {
-        @apply text-light-icon-hover
+        @apply text-light-icon-color cursor-pointer transition-colors hover:text-light-icon-hover;
     }
 
     .h-fullscreen {
@@ -65,6 +63,10 @@
         width: calc(100% - 5rem);
     }
 
+    .w-fullscreen-sm {
+        width: calc(100% - 2.5rem);
+    }
+    
     .focus {
         @apply hover:outline hover:outline-2 hover:outline-default focus:outline focus:outline-2 focus:outline-default
     }
@@ -74,15 +76,20 @@
     }
 
     .mt-header {
+        @apply sm:mt-[5rem];
         margin-top: 6.5rem;
     }
 
-    .pt-header {
+    .mt-header-dashboard {
         margin-top: -3rem;
     }
 
     .mt-header-before {
         margin-top: 7.75rem;
+    }
+
+    .pt-header {
+        padding-top: 6.5rem;
     }
 
     .link {
