@@ -1,5 +1,5 @@
 <script lang=ts>
-    import { TertiaryButton, TextBase, TextDecoration, TextXL } from "$lib/components";
+    import { ButtonTertiary, TextDecoration, TextSmall, TextXL } from "$lib/components";
     import Character from "$lib/img/banner_character.png";
 
     export let classList: string = "";
@@ -13,6 +13,8 @@
     rounded-3xl
     w-full
     isolate
+    lg:overflow-hidden
+    sm:p-6
     {classList}
 ">
     <div class="
@@ -27,10 +29,10 @@
             <TextDecoration>Powered by AI</TextDecoration>
             <TextXL classList="font-medium">Start creating your own characters.</TextXL>
         </div>
-        <TertiaryButton>
+        <ButtonTertiary classList="xs:w-full xs:justify-center" link="/">
             <i class="fa-solid fa-play text-light-btn-primary-hover"></i>
-            <TextBase classList="!font-semibold">Try Now</TextBase>
-        </TertiaryButton>
+            <TextSmall classList="!font-semibold">Try Now</TextSmall>
+        </ButtonTertiary>
     </div>
     <img 
         src={Character} 
@@ -40,9 +42,8 @@
             -top-12
             right-5
             max-w-full
-            h-[22rem]
+            h-[23.5rem]
             -z-10
             lg:mix-blend-overlay
-            sm:hidden
     ">
 </div>
