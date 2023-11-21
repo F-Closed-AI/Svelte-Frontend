@@ -1,5 +1,5 @@
 <script lang=ts>
-    import { BannerCard, TextDecoration, TextLarge, Slider, SliderCard, NewCard, TextSmall, PreviewCard, TextDetail, PrimaryButton } from "$lib/components";
+    import { TextDecoration, TextLarge, Slider, TextSmall, TextDetail, CardNew, CardBanner, CardCharacter, CardPreview, ButtonPrimary } from "$lib/components";
     import generated_1 from "$lib/img/generated_1.png";
     import generated_2 from "$lib/img/generated_2.png";
     import generated_3 from "$lib/img/generated_3.png";
@@ -24,7 +24,7 @@
         max-w-[60rem]
         xxl:max-w-none
     ">
-        <BannerCard></BannerCard>
+        <CardBanner></CardBanner>
         {#each ["Popular", "New", "Most Liked"] as category}
             <div class="
                 flex 
@@ -37,7 +37,7 @@
                 </div>
                 <Slider>
                     {#each images as image}
-                        <SliderCard img={image}></SliderCard>
+                        <CardCharacter classList="snap-start" img={image}></CardCharacter>
                     {/each}
                 </Slider>
             </div>
@@ -78,14 +78,14 @@
                 flex-col
                 gap-6
             ">
-                <NewCard img={generated_5}>
+                <CardNew img={generated_5}>
                     <TextSmall classList="!font-semibold">Azure Rider</TextSmall>
                     <TextSmall classList="!font-medium text-light-text-secondary">Goblin</TextSmall>
-                </NewCard>
-                <NewCard img={generated_6}>
+                </CardNew>
+                <CardNew img={generated_6}>
                     <TextSmall classList="!font-semibold">Sporry</TextSmall>
                     <TextSmall classList="!font-medium text-light-text-secondary">Frog</TextSmall>
-                </NewCard>
+                </CardNew>
             </div>
             <div class="
                 before:content-['']
@@ -98,7 +98,7 @@
                 before:-mx-10
                 before:-z-10
             ">
-                <PreviewCard classList="mt-8" img={generated_5}>
+                <CardPreview classList="mt-8" img={generated_5}>
                     <TextLarge slot="name">Azure Rider</TextLarge>
                     <TextDetail>
                         <TextLarge slot="amount">4.6</TextLarge>
@@ -110,8 +110,8 @@
                         <TextSmall classList="text-light-text-secondary" slot="format">k</TextSmall>
                         <TextSmall classList="!font-semibold text-light-text-secondary">Downloads</TextSmall>
                     </TextDetail>
-                    <PrimaryButton classList="!w-full" slot="button">View Character</PrimaryButton>
-                </PreviewCard>
+                    <ButtonPrimary classList="!w-full" slot="button">View Character</ButtonPrimary>
+                </CardPreview>
             </div>
         </div>
     </div>
