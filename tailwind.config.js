@@ -76,7 +76,7 @@ export default {
 			sm: 'clamp(1rem, 3.5vw, 1.25rem)',
 			base: 'clamp(1.25rem, 3.5vw, 1.5rem)',
 			lg: 'clamp(1.5rem, 4vw, 2rem)',
-			xl: 'clamp(2rem, 4vw, 2.5rem)'
+			xl: 'clamp(1.75rem, 4vw, 2.5rem)'
 		},
 		screens: {
 			xs: { max: '576px' },
