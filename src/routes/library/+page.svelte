@@ -51,9 +51,9 @@
         </div>
     </div>
     <div class="
-        flex 
-        flex-wrap 
-        gap-10 
+        grid
+        {showType === "grid" && "grid-cols-[repeat(auto-fill,minmax(250px,1fr))]"}
+        gap-4
     ">
         {#each data.characters as character}
             <CardCharacter
@@ -93,14 +93,14 @@
         rounded-xl
         bottom-10
         sm:bottom-28
-        xs:self-center
-        xs:flex-col
-        xs:w-full
+        sm:self-center
+        sm:flex-col
+        sm:w-full
     ">
-        <ButtonPrimary classList="xs:!w-full" link="library/create">
+        <ButtonPrimary classList="sm:!w-full" link="library/create">
             <TextSmall classList="!font-semibold">Create Character</TextSmall>
         </ButtonPrimary>
-        <ButtonSecondary classList="xs:!w-full">
+        <ButtonSecondary classList="sm:!w-full">
             <TextSmall classList="!font-semibold">Select All</TextSmall>
         </ButtonSecondary>
     </div>
