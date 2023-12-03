@@ -2,11 +2,12 @@
 
 
 export { default as Header } from "../components/layout/header.svelte";
+export { default as LoadAnimationWrapper } from "../components/layout/loadAnimationWrapper.svelte";
 export { default as TabNavigation } from "../components/layout/tabNavigation.svelte";
 export { default as TabNavigationItem } from "../components/layout/tabNavigationItem.svelte";
 export { default as Sidebar } from "../components/layout/sidebar.svelte";
 export { default as SidebarItem } from "../components/layout/sidebarItem.svelte";
-export { default as Wrapper } from "../components/layout/wrapper.svelte";
+export { default as Wrapper } from "./layout/pageWrapper.svelte";
 
 /* Shared */
 
