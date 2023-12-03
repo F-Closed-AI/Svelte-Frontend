@@ -22,7 +22,8 @@
         gap-12
         flex-[2.25] 
         max-w-[60rem]
-        xxl:max-w-none
+        -mt-2.5
+        xxxl:max-w-none
     ">
         <CardBanner></CardBanner>
         {#each ["Popular", "New", "Most Liked"] as category}
@@ -32,8 +33,13 @@
                 justify-between
                 gap-6
             ">
-                <div>
+                <div class="
+                    flex 
+                    justify-between
+                    xs:flex-col
+                ">
                     <TextLarge>{category} Characters</TextLarge>
+                    <TextDecoration classList="text-light-text-primary" line={false} link="/">View all</TextDecoration>
                 </div>
                 <Slider>
                     {#each images as image}
@@ -55,7 +61,7 @@
         before:-mx-10
         before:mt-header-before
         before:-z-10
-        xxl:hidden
+        xxxl:hidden
     ">
         <div class="
             fixed
