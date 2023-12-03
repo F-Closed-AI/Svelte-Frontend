@@ -13,6 +13,7 @@
         flex
         gap-10
         flex-shrink-0
+        overflow-hidden
         {showType === "grid" && "xs:flex-grow"}
         {showType === "lines" && "w-full sm:flex-col sm:bg-light-dashboard-dark sm:gap-0 sm:rounded-3xl"}
         {classList}
