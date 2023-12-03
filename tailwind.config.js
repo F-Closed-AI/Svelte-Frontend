@@ -84,7 +84,8 @@ export default {
 			md: { max: '992px' },
 			lg: { max: '1200px' },
 			xl: { max: '1440px' },
-			xxl: { max: '1600px' }
+			xxl: { max: '1600px' },
+			xxxl: { max: '1800px' }
 		}
 	},
 	plugins: []
