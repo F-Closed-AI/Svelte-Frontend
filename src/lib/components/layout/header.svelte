@@ -26,7 +26,7 @@
             classList="!px-12"
             placeholder="Search Character..."
         >
-            <i slot="icon" class="fa-solid fa-magnifying-glass"></i>
+            <i slot="icon" class="fa-solid fa-magnifying-glass text-light-btn-primary-background"></i>
         </Input>
     </div>
     <div class="flex items-center gap-5 flex-shrink-0">
