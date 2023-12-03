@@ -29,7 +29,7 @@
             <TextDecoration>Powered by AI</TextDecoration>
             <TextXL classList="font-medium">Start creating your own characters.</TextXL>
         </div>
-        <ButtonTertiary classList="xs:w-full xs:justify-center" link="/library/create">
+        <ButtonTertiary classList="animate-fade-in-once xs:w-full xs:justify-center" link="/library/create">
             <i class="fa-solid fa-play text-light-btn-primary-hover"></i>
             <TextSmall classList="!font-semibold">Try Now</TextSmall>
         </ButtonTertiary>
@@ -39,10 +39,11 @@
         alt="Character"
         class="
             absolute
-            -top-12
+            -top-10
             right-5
             max-w-full
-            h-[23.5rem]
+            h-[22.75rem]
+            object-cover
             -z-10
             lg:mix-blend-overlay
     ">
