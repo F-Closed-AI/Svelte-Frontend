@@ -21,7 +21,6 @@
             ml-[15rem]
             rounded-tl-[3rem]
             p-12
-            pb-0
             pr-[0.1rem]
             z-0
             overflow-y-auto
@@ -39,7 +38,7 @@
             sm:pl-[0.1rem]
             sm:rounded-none
             sm:before:left-0
-            sm:pt-24
+            sm:pt-28
             sm:h-screen
             sm:pb-28
         ">
