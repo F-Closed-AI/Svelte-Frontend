@@ -27,12 +27,14 @@
     <a 
         href="/" 
         class="
+            grid
+            place-content-center
             absolute
             text-light-text-tertiary
             gradient
             rounded-full
             -top-5
-            px-4
+            px-3.5
             py-3
             cursor-pointer
     ">
