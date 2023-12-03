@@ -59,7 +59,7 @@
                         flex
                         text-light-text-primary
                         bg-light-background
-                        px-3.5
+                        px-3
                         py-2
                         ml-2
                         rounded-full
@@ -88,7 +88,7 @@
                             flex
                             text-light-text-primary
                             bg-light-background
-                            px-3.5
+                            px-3
                             py-2
                             mr-2
                             rounded-full
