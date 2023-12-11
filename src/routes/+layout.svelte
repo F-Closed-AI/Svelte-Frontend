@@ -2,6 +2,10 @@
     import "../app.css"
     import { page } from "$app/stores";
     import { Header, Wrapper, Sidebar, TabNavigation, TabNavigationItem } from "$lib/components";
+	import { tabs } from "$lib/stores/tabNavigationStore";
+	import { beforeNavigate } from "$app/navigation";
+
+    beforeNavigate(() => tabs.set([]));
 </script>
 
 <svelte:head>
@@ -22,6 +26,7 @@
             rounded-tl-[3rem]
             p-12
             pr-[0.1rem]
+            {$page.url.pathname.includes("/library") && "pb-40"}
             z-0
             overflow-y-auto
             scrollbar-hide
@@ -41,7 +46,8 @@
             sm:pt-28
             sm:h-screen
             sm:pb-28
-        ">
+        "
+        >
             <slot />
         </div>
     </div>
