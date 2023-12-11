@@ -14,6 +14,8 @@
         gap-10
         flex-shrink-0
         overflow-hidden
+        group
+        rounded-xl
         {showType === "grid" && "xs:flex-grow"}
         {showType === "lines" && "w-full sm:flex-col sm:bg-light-dashboard-dark sm:gap-0 sm:rounded-3xl"}
         {classList}
@@ -29,7 +31,9 @@
                 w-[15.625rem] 
                 object-cover 
                 rounded-xl
+                transition-transform
                 {showType === "grid" && "w-full max-h-[40rem]"}
+                {showType !== "lines" && "group-hover:scale-110"}
                 {showType === "lines" && "w-full object-scale-down bg-light-dashboard-dark sm:object-cover sm:flex-[0.5] sm:max-h-[10.25rem]"}
                 {imgClassList}
         ">
