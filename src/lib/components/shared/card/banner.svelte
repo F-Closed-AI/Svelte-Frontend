@@ -46,5 +46,7 @@
             object-cover
             -z-10
             lg:mix-blend-overlay
-    ">
+            md:right-0
+        "
+    >
 </div>
