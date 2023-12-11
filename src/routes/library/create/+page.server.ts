@@ -2,16 +2,7 @@ import { fail, redirect } from "@sveltejs/kit";
 import { sendRequest } from "$lib/functions/api/request.js";
 import { schemaCreateCharacter, schemaSaveCharacter } from "$lib/schemas";
 import { superValidate } from "sveltekit-superforms/client";
-import type { Character } from "$lib/types/types.js";
-
-export const load = async (event) => {
-    const createCharacterForm = await superValidate(event, schemaCreateCharacter);
-    const saveCharacterForm = await superValidate(event, schemaSaveCharacter);
-    return {
-        createCharacterForm,
-        saveCharacterForm
-    }
-}
+import type { Character } from "$lib/types";
 
 export const actions = {
     create: async (event) => {
@@ -20,6 +11,8 @@ export const actions = {
         if (!form.valid) {
             return fail(400, { form });
         } 
+
+        return { form }
     },
     
     save: async (event) => {
