@@ -2,7 +2,9 @@
 
 
 // API
-export * from "./api/request";
+export { sendRequest } from "./api/request";
+export { sendRequests } from "./api/sendRequests";
 
 // Character
-export * from "./character/convert";
+export { convertCharacter } from "./character/convert";
+export { calculateRemainingTime, formatRemainingTime, addS } from "./character/time";
