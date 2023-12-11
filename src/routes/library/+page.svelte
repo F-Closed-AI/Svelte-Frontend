@@ -1,6 +1,8 @@
 <script lang=ts>
     import { afterNavigate } from "$app/navigation";
+	import { tabs } from "$lib/stores/tabNavigationStore.js";
 	import { CardCharacter, ButtonFilter, ButtonPrimary, TextBase, TextDetail, TextLarge, TextSmall, TextXL, ButtonSecondary } from "$lib/components";
+	import Actionbar from "$lib/components/shared/other/actionbar.svelte";
     import generated_1 from "$lib/img/generated_1.png";
     import generated_2 from "$lib/img/generated_2.png";
     import generated_3 from "$lib/img/generated_3.png";
@@ -13,22 +15,37 @@
 
     const images = [generated_1, generated_2, generated_3, generated_4]
 
+    const updateTabs = () => {
+        tabs.set([
+            { icon: "fa-solid fa-toolbox", link: "/library/create" },
+            { icon: "fa-solid fa-check", onClick: () => console.log("yo") }
+        ]) 
+    };
+
+
     function getRandomImage() {
         const randomIndex = Math.floor(Math.random() * (images.length- 0)) + 0;
         return images[randomIndex];
     }
 
-    afterNavigate(() => loaded = true);
+    afterNavigate(() => {
+        loaded = true
+        updateTabs();
+    });
+
+    $: tabs.set([
+        { icon: "fa-solid fa-toolbox", link: "/library/create" },
+        { icon: "fa-solid fa-check", onClick: () => console.log("yo") }
+    ]) 
 </script>
 
 <div class="
     flex
     flex-col
     gap-10
-    pb-52
 ">
     <div>
-        <TextXL classList="font-semibold">My Characters (5)</TextXL>
+        <TextXL classList="font-semibold">My Characters ({data.characters.length})</TextXL>
         <div class="
             flex
             justify-between
@@ -61,6 +78,7 @@
                 classList={
                     (showType === "grid" && data.characters.length > 3) ? "flex-grow" : ""
                 } 
+                link={`/library/edit/${character.id}`}
                 img={getRandomImage()} 
                 {showType}
             >
@@ -83,25 +101,12 @@
             </CardCharacter>  
         {/each}
     </div>
-    <div class="
-        flex
-        gap-5
-        fixed 
-        bg-light-background 
-        bg-opacity-75
-        p-5
-        rounded-xl
-        bottom-10
-        sm:bottom-28
-        sm:self-center
-        sm:flex-col
-        sm:w-full
-    ">
+    <Actionbar>
         <ButtonPrimary classList="sm:!w-full" link="library/create">
             <TextSmall classList="!font-semibold">Create Character</TextSmall>
         </ButtonPrimary>
         <ButtonSecondary classList="sm:!w-full">
             <TextSmall classList="!font-semibold">Select All</TextSmall>
         </ButtonSecondary>
-    </div>
+    </Actionbar>
 </div>
