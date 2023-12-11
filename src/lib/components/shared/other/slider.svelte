@@ -1,5 +1,7 @@
 <script lang=ts>
-	import { onMount } from "svelte";
+	import { ButtonCircle } from "$lib/components";
+	import LoadAnimationWrapper from "$lib/components/layout/loadAnimationWrapper.svelte";
+import { onMount } from "svelte";
 	import { fade, scale } from "svelte/transition";
 
     export let classList: string = "";
@@ -53,25 +55,22 @@
     >
         {#if arrows}
             {#if arrowVisiblity.left}
-                <button 
+                <div
                     class="
-                        absolute 
-                        flex
-                        text-light-text-primary
-                        bg-light-background
-                        px-3
-                        py-2
-                        ml-2
-                        rounded-full
+                        absolute
                         top-[50%] 
                         -translate-y-[50%]
-                        cursor-pointer
+                        ml-2
+                        z-10
                     "
                     transition:scale|local
-                    on:click={() => navigateSlider(-1)}
                 >
-                    <i class="fa-solid fa-chevron-left"></i>
-                </button>
+                    <ButtonCircle 
+                        onClick={() => navigateSlider(-1)}
+                    >
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </ButtonCircle>
+                </div>
             {/if}
             {#if arrowVisiblity.right}
                 <div 
@@ -81,27 +80,24 @@
                         right-0
                         h-full
                         isolate
+                        z-10
                     "
                 >
-                    <button 
-                        class="
-                            flex
-                            text-light-text-primary
-                            bg-light-background
-                            px-3
-                            py-2
-                            mr-2
-                            rounded-full
-                            top-[50%] 
-                            -translate-y-[50%] 
-                            right-0
-                            cursor-pointer
-                        "
+                    <div
                         transition:scale|local
-                        on:click={() => navigateSlider(1)}
                     >
-                        <i class="fa-solid fa-chevron-right"></i>
-                    </button>
+                        <ButtonCircle
+                            classList="
+                                mr-2
+                                top-[50%]
+                                -translate-y-[50%]
+                                right-0 
+                            "
+                            onClick={() => navigateSlider(1)}
+                        >
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </ButtonCircle>
+                    </div>
                     <div 
                         class="
                             absolute
