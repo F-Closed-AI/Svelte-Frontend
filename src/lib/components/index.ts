@@ -9,13 +9,21 @@ export { default as Sidebar } from "../components/layout/sidebar.svelte";
 export { default as SidebarItem } from "../components/layout/sidebarItem.svelte";
 export { default as Wrapper } from "./layout/pageWrapper.svelte";
 
+
+/* Page */
+
+export { default as PageCreate } from "../components/page/create.svelte";
+
+
 /* Shared */
 
 
 // Button 
+export { default as ButtonCircle } from "../components/shared/button/circle.svelte";
 export { default as ButtonFilter } from "../components/shared/button/filter.svelte";
 export { default as ButtonPrimary } from "../components/shared/button/primary.svelte";
 export { default as ButtonSecondary } from "../components/shared/button/secondary.svelte";
+export { default as ButtonSwitch } from "../components/shared/button/switch.svelte";
 export { default as ButtonTertiary } from "../components/shared/button/tertiary.svelte";
 
 // Card
@@ -36,8 +44,14 @@ export { default as Line } from "../components/shared/object/line.svelte";
 export { default as Tooltip } from "../components/shared/object/tooltip.svelte";
 
 // Other
+export { default as ActionBar } from "../components/shared/other/actionbar.svelte";
 export { default as Logo } from "../components/shared/other/logo.svelte";
 export { default as Slider } from "../components/shared/other/slider.svelte";
+export { default as Switcher } from "../components/shared/other/switcher.svelte";
+
+    // Table
+    export { default as TableRow } from "./shared/other/table/row.svelte";
+    export { default as Table } from "./shared/other/table/table.svelte";
 
 // Text
 export { default as TextBase } from "../components/shared/text/base.svelte";
