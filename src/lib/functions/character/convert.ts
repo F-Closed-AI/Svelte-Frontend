@@ -1,6 +1,6 @@
-import type { CharacterData, Character } from "$lib/types/types";
+import type { CharacterData, Character } from "$lib/types";
 
-export default function convertCharacter(character: CharacterData)  {
+export function convertCharacter(character: CharacterData)  {
     const regex = /Name:\s*(.*?)\s*Age:\s*(.*?)\s*Backstory:\s*(.*)/i;
     const matches = character.output.answer.match(regex);
 
