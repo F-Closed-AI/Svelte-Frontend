@@ -6,7 +6,7 @@
     export let inputClassList: string = "";
     export let label: string = "";
     export let value: string = "";
-    export let error: string[] | undefined = [];
+    export let error: string[] | any = [];
     export let onInput: (event: Event) => void = () => {};
 </script>
 
