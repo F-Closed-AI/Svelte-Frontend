@@ -15,7 +15,7 @@ export default {
 						secondary: {
 							color: '#000000',
 							background: '#ffffff',
-							hover: 'EBEBEB'
+							hover: '#EBEBEB'
 						}
 					},
 					icon: {
@@ -32,7 +32,8 @@ export default {
 						primary: '#000000',
 						secondary: '#B4B8C2',
 						tertiary: '#ffffff',
-						accent: '#3DD1F5'
+						accent: '#3DD1F5',
+						highlight: 'rgba(61,209,245, 0.1)'
 					},
 					gradient: {
 						left: '#2F2F53',
@@ -75,8 +76,8 @@ export default {
 			xs: 'clamp(0.25rem, 3.5vw, 0.5rem)',
 			sm: 'clamp(1rem, 3.5vw, 1.25rem)',
 			base: 'clamp(1.25rem, 3.5vw, 1.5rem)',
-			lg: 'clamp(1.5rem, 4vw, 2rem)',
-			xl: 'clamp(1.75rem, 4vw, 2.5rem)'
+			lg: 'clamp(1.375rem, 4vw, 2rem)',
+			xl: 'clamp(1.5rem, 4vw, 2.5rem)'
 		},
 		screens: {
 			xs: { max: '576px' },
