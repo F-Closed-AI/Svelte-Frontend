@@ -36,13 +36,13 @@ export const actions = {
     
     save: async (event) => {
         const form = await superValidate(event, schemaSaveCharacter);
-        console.log(form.data.charId);
 
         if (form.data.charId === null) return fail(400, { form });
 
         const character: Character = {
             charId: form.data.charId,
             userId: 17,
+            prompt: form.data.prompt,
             name: form.data.name,
             age: Number(form.data.age),
             backStory: form.data.backStory
