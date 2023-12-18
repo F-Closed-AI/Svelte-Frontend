@@ -1,5 +1,6 @@
 <script lang=ts>
     export let skeleton: boolean = false;
+    export let classList: string = "";
 </script>
 
 <h2 
@@ -8,6 +9,7 @@
         text-lg 
         font-semibold 
         max-w-max
+        {classList}
 ">
     <slot></slot>
 </h2>

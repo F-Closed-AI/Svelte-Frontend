@@ -12,7 +12,16 @@ export { default as Wrapper } from "./layout/pageWrapper.svelte";
 
 /* Page */
 
-export { default as PageCreate } from "../components/page/create.svelte";
+
+export { default as PageCreateCharacter } from "./page/createCharacter.svelte";
+export { default as PageCreateRoom } from "./page/createRoom.svelte";
+
+    // Modal
+    export { default as ModalAddCharacter } from "./page/modal/addCharacter.svelte";
+    export { default as ModalAddLabel } from "./page/modal/addLabel.svelte";
+    
+    // Shared 
+    export { default as PageContent } from "../components/page/shared/content.svelte";
 
 
 /* Shared */
@@ -28,9 +37,10 @@ export { default as ButtonTertiary } from "../components/shared/button/tertiary.
 
 // Card
 export { default as CardBanner } from "../components/shared/card/banner.svelte";
+export { default as CardCharacter } from "./shared/card/character.svelte";
 export { default as CardNew } from "../components/shared/card/new.svelte";
 export { default as CardPreview } from "../components/shared/card/preview.svelte";
-export { default as CardCharacter } from "./shared/card/character.svelte";
+export { default as CardRoom } from "../components/shared/card/room.svelte";
 
 // Input
 export { default as Input } from "../components/shared/input/input.svelte";
@@ -40,14 +50,21 @@ export { default as TextArea } from "../components/shared/input/textarea.svelte"
 export { default as LoadingIcon } from "./shared/loading/icon.svelte";
 
 // Object
+export { default as Modal } from "./shared/object/modal.svelte";
 export { default as Line } from "../components/shared/object/line.svelte";
 export { default as Tooltip } from "../components/shared/object/tooltip.svelte";
 
 // Other
 export { default as ActionBar } from "../components/shared/other/actionbar.svelte";
+export { default as Avatar } from "../components/shared/other/avatar.svelte";
+export { default as Label } from "../components/shared/other/label.svelte";
 export { default as Logo } from "../components/shared/other/logo.svelte";
 export { default as Slider } from "../components/shared/other/slider.svelte";
 export { default as Switcher } from "../components/shared/other/switcher.svelte";
+
+    // Draggable List
+    export { default as DraggableList } from "./shared/other/draggableList/draggableList.svelte";
+    export { default as DraggableItem } from "./shared/other/draggableList/item.svelte";
 
     // Table
     export { default as TableRow } from "./shared/other/table/row.svelte";

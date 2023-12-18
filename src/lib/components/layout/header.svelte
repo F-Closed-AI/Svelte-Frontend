@@ -1,10 +1,11 @@
 <script lang=ts>
-	import { Logo, Input } from "$lib/components/index.ts";
-    import Avatar from "$lib/img/avatar.png";
+	import { Avatar, Logo, Input } from "$lib/components/index.ts";
+    import avatar from "$lib/img/avatar.png";
 </script>
 
 <header class="
     fixed
+    isolate
     flex 
     gap-16 
     justify-between 
@@ -13,8 +14,14 @@
     max-w-[120rem]
     z-10
     xs:w-fullscreen-sm
-    sm:bg-none
+    sm:bg-light-dashboard-light
     sm:mt-5
+    sm:before:absolute
+    sm:before:-z-10
+    sm:before:left-0
+    sm:before:w-full
+    sm:before:h-[6.25rem]
+    sm:before:bg-light-dashboard-light
 ">
     <Logo></Logo>
     <div class="
@@ -47,16 +54,11 @@
             ">1</span>
         </button>
         <a href="/settings">
-            <img 
-                class="
-                    w-14
-                    h-14
-                    object-cover
-                    rounded-full
-                "
-                src={Avatar} 
+            <Avatar
+                classList="w-[4rem] h-[4rem]"
+                image={avatar}
                 alt="Avatar"
-            >
+            ></Avatar>
         </a>
     </div>
 </header>

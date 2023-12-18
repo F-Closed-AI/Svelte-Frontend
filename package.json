@@ -37,5 +37,8 @@
 		"vitest": "^0.25.3",
 		"zod": "^3.22.4"
 	},
-	"type": "module"
+	"type": "module",
+	"dependencies": {
+		"motion": "^10.16.4"
+	}
 }

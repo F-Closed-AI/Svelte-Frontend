@@ -17,7 +17,7 @@
         group
         rounded-xl
         {showType === "grid" && "xs:flex-grow"}
-        {showType === "lines" && "w-full lg:flex-col lg:bg-light-dashboard-dark lg:gap-0 lg:rounded-3xl"}
+        {showType === "lines" && "w-full sm:flex-col sm:bg-light-dashboard-dark sm:gap-0 sm:rounded-3xl"}
         {classList}
     "
 >
@@ -34,7 +34,7 @@
                 transition-transform
                 {showType === "grid" && "w-full max-h-[40rem]"}
                 {showType !== "lines" && "group-hover:scale-110"}
-                {showType === "lines" && "w-full object-scale-down bg-light-dashboard-dark lg:object-cover lg:max-h-[10.25rem]"}
+                {showType === "lines" && "w-full object-scale-down bg-light-dashboard-dark sm:object-cover sm:flex-[0.5] sm:max-h-[10.25rem]"}
                 {imgClassList}
         ">
     {:else}
@@ -54,8 +54,8 @@
             flex-col
             gap-6
             justify-between
-            lg:justify-normal
-            lg:p-5
+            sm:justify-normal
+            sm:p-5
         ">
             <slot></slot>
         </div>

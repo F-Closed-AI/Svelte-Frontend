@@ -1,19 +1,13 @@
 <script lang=ts>
     import { afterNavigate } from "$app/navigation";
 	import { tabs } from "$lib/stores/tabNavigationStore.js";
-	import { CardCharacter, ButtonFilter, ButtonPrimary, TextBase, TextDetail, TextLarge, TextSmall, TextXL, ButtonSecondary } from "$lib/components";
-	import Actionbar from "$lib/components/shared/other/actionbar.svelte";
-    import generated_1 from "$lib/img/generated_1.png";
-    import generated_2 from "$lib/img/generated_2.png";
-    import generated_3 from "$lib/img/generated_3.png";
-    import generated_4 from "$lib/img/generated_4.png";
+	import { CardCharacter, ButtonFilter, ButtonPrimary, TextBase, TextDetail, TextLarge, TextSmall, TextXL, ButtonSecondary, ActionBar } from "$lib/components";
+    import { getRandomImage } from "$lib/functions/index.js";
 
     export let showType: "grid" | "lines" = "grid";
     export let data;
 
     let loaded: boolean = false;
-
-    const images = [generated_1, generated_2, generated_3, generated_4]
 
     const updateTabs = () => {
         tabs.set([
@@ -22,14 +16,8 @@
         ]) 
     };
 
-
-    function getRandomImage() {
-        const randomIndex = Math.floor(Math.random() * (images.length- 0)) + 0;
-        return images[randomIndex];
-    }
-
     afterNavigate(() => {
-        loaded = true
+        loaded = true;
         updateTabs();
     });
 
@@ -101,12 +89,12 @@
             </CardCharacter>  
         {/each}
     </div>
-    <Actionbar>
+    <ActionBar>
         <ButtonPrimary classList="sm:!w-full" link="library/create">
             <TextSmall classList="!font-semibold">Create Character</TextSmall>
         </ButtonPrimary>
         <ButtonSecondary classList="sm:!w-full">
             <TextSmall classList="!font-semibold">Select All</TextSmall>
         </ButtonSecondary>
-    </Actionbar>
+    </ActionBar>
 </div>

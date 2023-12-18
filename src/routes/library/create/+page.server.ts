@@ -20,6 +20,7 @@ export const actions = {
 
         const character: Character = {
             userId: 17,
+            prompt: form.data.prompt,
             name: form.data.name,
             age: Number(form.data.age),
             backStory: form.data.backStory
