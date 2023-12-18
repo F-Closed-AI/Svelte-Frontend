@@ -1,8 +1,8 @@
 <script lang=ts>
-	import { PageCreate } from "$lib/components";
-    import type { PageCreate as Type } from "$lib/types";
+	import { PageCreateCharacter } from "$lib/components";
+    import type { PageCreateCharacter as Type } from "$lib/types";
 
     export let data: Type;
 </script>
 
-<PageCreate {data}></PageCreate>
+<PageCreateCharacter {data}></PageCreateCharacter>
