@@ -2,5 +2,8 @@
 
 
 // Character
-export { schemaCreateCharacter, type SchemaCreateCharacter, } from "./character/createCharacter"; 
-export { schemaSaveCharacter, type SchemaSaveCharacter, } from "./character/saveCharacter"; 
+export { schemaCreateCharacter, type SchemaCreateCharacter } from "./character/createCharacter"; 
+export { schemaSaveCharacter, type SchemaSaveCharacter } from "./character/saveCharacter";
+
+// Room
+export { schemaCreateRoom, type SchemaCreateRoom } from "./room/createRoom";
