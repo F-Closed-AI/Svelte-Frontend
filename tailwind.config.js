@@ -33,7 +33,8 @@ export default {
 						secondary: '#B4B8C2',
 						tertiary: '#ffffff',
 						accent: '#3DD1F5',
-						highlight: 'rgba(61,209,245, 0.1)'
+						highlight: 'rgba(61,209,245, 0.1)',
+						error: '#f05b4d'
 					},
 					gradient: {
 						left: '#2F2F53',
