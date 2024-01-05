@@ -4,22 +4,26 @@
     export let classList: string = "";
     export let imgClassList: string = "";
     export let img: string = "";
-    export let showType: "grid" | "lines" | "slider" = "slider";
+    export let showType: "grid" | "lines" | "slider" = "slider";    
 </script>
 
 <a 
     href={link}
     class="
+        relative
         flex
-        gap-10
+        flex-col
         flex-shrink-0
         overflow-hidden
         group
-        rounded-xl
+        rounded-3xl
+        bg-light-background
+        cursor-default
         {showType === "grid" && "xs:flex-grow"}
-        {showType === "lines" && "w-full sm:flex-col sm:bg-light-dashboard-dark sm:gap-0 sm:rounded-3xl"}
+        {showType === "lines" && "bg-light-dashboard-light !flex-row gap-10 w-full sm:!flex-col sm:gap-0 sm:rounded-3xl sm:bg-light-background"}
         {classList}
     "
+    data-sveltekit-preload-data
 >
     {#if img && !skeleton}
         <img 
@@ -27,21 +31,34 @@
             alt="card"
             class="
                 flex-1
-                h-[18.75rem] 
-                w-[15.625rem] 
+                !h-[10rem]
+                !max-h-[10.5rem]
+                w-full
                 object-cover 
-                rounded-xl
+                rounded-t-3xl
                 transition-transform
-                {showType === "grid" && "w-full max-h-[40rem]"}
-                {showType !== "lines" && "group-hover:scale-110"}
-                {showType === "lines" && "w-full object-scale-down bg-light-dashboard-dark sm:object-cover sm:flex-[0.5] sm:max-h-[10.25rem]"}
+                {showType === "grid" && "w-full"}
+                {showType === "lines" && "w-full !h-[18.75rem] !max-h-[18.75rem] rounded-3xl object-scale-down bg-light-dashboard-dark sm:object-cover sm:flex-[0.5] sm:!max-h-[10.25rem]"}
                 {imgClassList}
         ">
+        <div 
+            class="
+                flex
+                items-center
+                px-4
+                w-full
+                mt-5
+                h-[7.5rem]
+                {showType === "lines" && "hidden"}
+            "    
+        >
+            <slot></slot>
+        </div>
     {:else}
         <div class="
             flex-1
-            h-[18.75rem] 
-            w-[15.625rem]
+            min-h-[19.5rem]
+            w-full
             rounded-xl
             skeleton
             {imgClassList}
@@ -53,9 +70,11 @@
             flex
             flex-col
             gap-6
+            h-full
             justify-between
             sm:justify-normal
             sm:p-5
+            {showType === "lines" && "py-1"}
         ">
             <slot></slot>
         </div>
