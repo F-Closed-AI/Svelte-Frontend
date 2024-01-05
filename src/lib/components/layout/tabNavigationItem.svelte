@@ -12,6 +12,7 @@
         hover:text-light-text-accent
         {active && "!text-light-text-accent"}
     "
+    data-sveltekit-preload-data
 >
     <slot></slot>
 </a>
