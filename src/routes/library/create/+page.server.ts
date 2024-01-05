@@ -1,4 +1,5 @@
-import { fail, redirect } from "@sveltejs/kit";
+import { fail } from "@sveltejs/kit";
+import { redirect } from "sveltekit-flash-message/server";
 import { sendRequest } from "$lib/functions/api/request.js";
 import { schemaCreateCharacter, schemaSaveCharacter } from "$lib/schemas";
 import { superValidate } from "sveltekit-superforms/client";
@@ -27,7 +28,6 @@ export const actions = {
         }
 
         await sendRequest(`Character/Store`, "POST", character);
-
-        throw redirect(302, "/library");
+        throw redirect("/library", { type: "success", message: "Succesfully created character." }, event);
     }
 }
