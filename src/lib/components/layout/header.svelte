@@ -17,10 +17,11 @@
     sm:bg-light-dashboard-light
     sm:mt-5
     sm:before:absolute
+    sm:before:-translate-y-[0.125rem]
     sm:before:-z-10
     sm:before:left-0
     sm:before:w-full
-    sm:before:h-[6.25rem]
+    sm:before:h-[7rem]
     sm:before:bg-light-dashboard-light
 ">
     <Logo></Logo>
@@ -34,6 +35,7 @@
             placeholder="Search Character..."
         >
             <i slot="icon" class="fa-solid fa-magnifying-glass text-light-btn-primary-background"></i>
+            
         </Input>
     </div>
     <div class="flex items-center gap-5 flex-shrink-0">
