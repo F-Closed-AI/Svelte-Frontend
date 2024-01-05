@@ -1,13 +1,16 @@
 <script lang=ts>
     import { afterNavigate } from "$app/navigation";
 	import { tabs } from "$lib/stores/tabNavigationStore.js";
-	import { CardCharacter, ButtonFilter, ButtonPrimary, TextBase, TextDetail, TextLarge, TextSmall, TextXL, ButtonSecondary, ActionBar } from "$lib/components";
+	import { CardCharacter, ButtonFilter, ButtonPrimary, TextBase, TextDetail, TextLarge, TextSmall, TextXL, ButtonSecondary, ActionBar, ButtonCircle } from "$lib/components";
     import { getRandomImage } from "$lib/functions/index.js";
+	import { onMount } from "svelte";
+	import { fly } from "svelte/transition";
 
     export let showType: "grid" | "lines" = "grid";
     export let data;
 
     let loaded: boolean = false;
+    let changeFormat: boolean = true;
 
     const updateTabs = () => {
         tabs.set([
@@ -25,6 +28,24 @@
         { icon: "fa-solid fa-toolbox", link: "/library/create" },
         { icon: "fa-solid fa-check", onClick: () => console.log("yo") }
     ]) 
+
+    function handleResize() {
+        if (window.innerWidth <= 576) {
+            showType = "grid";
+            changeFormat = false;
+            return;
+        }
+        changeFormat = true;
+    }
+
+    onMount(() => {
+        handleResize()
+
+        window.addEventListener('resize', handleResize);
+        return() => {
+            window.removeEventListener('resize', handleResize);
+        }
+    })
 </script>
 
 <div class="
@@ -42,17 +63,19 @@
             xs:items-start
         ">
             <ButtonFilter>time created</ButtonFilter>
-            <div class="
-                flex
-                gap-5
-            ">
-                <button on:click={() => showType = "grid"}>
-                    <i class="fa-solid fa-grip-vertical icon"></i>
-                </button>
-                <button on:click={() => showType = "lines"}>
-                    <i class="fa-solid fa-list"></i>
-                </button>
-            </div>
+            {#if changeFormat && loaded}
+                <div class="
+                    flex
+                    gap-5
+                ">
+                    <button on:click={() => showType = "grid"} title="Grid view">
+                        <i class="fa-solid fa-grip-vertical icon"></i>
+                    </button>
+                    <button on:click={() => showType = "lines"} title="Lines view">
+                        <i class="fa-solid fa-list"></i>
+                    </button>
+                </div>
+            {/if}
         </div>
     </div>
     <div class="
@@ -66,25 +89,64 @@
                 classList={
                     (showType === "grid" && data.characters.length > 3) ? "flex-grow" : ""
                 } 
-                link={`/library/edit/${character.id}`}
+                link={`/library/${character.id}`}
                 img={getRandomImage()} 
+                title={character.name}
                 {showType}
             >
                 <div>
                     <TextLarge>{character.name}</TextLarge>
                     <TextBase classList="!font-medium text-light-text-secondary">{character.id}</TextBase>
                 </div>
-                <div class="flex gap-24">
-                    <TextDetail>
-                        <TextLarge slot="amount">4.6</TextLarge>
-                        <TextSmall classList="text-light-text-secondary" slot="format">/5</TextSmall>
-                        <TextSmall classList="!font-semibold text-light-text-secondary">Rating</TextSmall>
-                    </TextDetail>
-                    <TextDetail>
-                        <TextLarge slot="amount">78.4</TextLarge>
-                        <TextSmall classList="text-light-text-secondary" slot="format">k</TextSmall>
-                        <TextSmall classList="!font-semibold text-light-text-secondary">Downloads</TextSmall>
-                    </TextDetail>
+                <div class="flex justify-between">
+                    <div class="flex gap-24">
+                        <TextDetail>
+                            <TextLarge slot="amount">4.6</TextLarge>
+                            <TextSmall classList="text-light-text-secondary" slot="format">/5</TextSmall>
+                            <TextSmall classList="!font-semibold text-light-text-secondary">Rating</TextSmall>
+                        </TextDetail>
+                        <TextDetail>
+                            <TextLarge slot="amount">78.4</TextLarge>
+                            <TextSmall classList="text-light-text-secondary" slot="format">k</TextSmall>
+                            <TextSmall classList="!font-semibold text-light-text-secondary">Downloads</TextSmall>
+                        </TextDetail>
+                    </div>
+                    <ButtonCircle 
+                        classList="
+                            box-shadow 
+                            w-14
+                            h-14
+                            flex 
+                            items-center 
+                            justify-center
+                            transition-colors
+                            text-light-btn-primary-hover
+                            hover:bg-light-btn-primary-background 
+                            hover:text-light-text-tertiary
+                        "
+                        link="/library/edit/{character.id}"
+                    >
+                        <i class="fa-solid fa-pencil"></i>
+                    </ButtonCircle>
+                </div>
+                <div class="absolute right-3 top-3" slot="cta">
+                    <ButtonCircle 
+                        classList="
+                            box-shadow 
+                            w-14
+                            h-14
+                            flex 
+                            items-center 
+                            justify-center
+                            transition-colors
+                            text-light-btn-primary-hover
+                            hover:bg-light-btn-primary-background 
+                            hover:text-light-text-tertiary
+                        "
+                        link="/library/edit/{character.id}"
+                    >
+                        <i class="fa-solid fa-pencil"></i>
+                    </ButtonCircle>
                 </div>
             </CardCharacter>  
         {/each}
