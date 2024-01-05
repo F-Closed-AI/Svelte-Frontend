@@ -7,6 +7,7 @@ export { default as TabNavigation } from "../components/layout/tabNavigation.sve
 export { default as TabNavigationItem } from "../components/layout/tabNavigationItem.svelte";
 export { default as Sidebar } from "../components/layout/sidebar.svelte";
 export { default as SidebarItem } from "../components/layout/sidebarItem.svelte";
+export { default as SidebarItemNested } from "../components/layout/sidebarItemNested.svelte";
 export { default as Wrapper } from "./layout/pageWrapper.svelte";
 
 
@@ -15,10 +16,14 @@ export { default as Wrapper } from "./layout/pageWrapper.svelte";
 
 export { default as PageCreateCharacter } from "./page/createCharacter.svelte";
 export { default as PageCreateRoom } from "./page/createRoom.svelte";
+export { default as PageCreateLabel } from "./page/createLabel.svelte";
 
     // Modal
     export { default as ModalAddCharacter } from "./page/modal/addCharacter.svelte";
     export { default as ModalAddLabel } from "./page/modal/addLabel.svelte";
+    export { default as ModalBase } from "./page/modal/base.svelte";
+    export { default as ModalConfirmation } from "./page/modal/confirmation.svelte";
+    export { default as ModalStartConversation } from "./page/modal/startConversation.svelte";
     
     // Shared 
     export { default as PageContent } from "../components/page/shared/content.svelte";
@@ -57,6 +62,7 @@ export { default as Tooltip } from "../components/shared/object/tooltip.svelte";
 // Other
 export { default as ActionBar } from "../components/shared/other/actionbar.svelte";
 export { default as Avatar } from "../components/shared/other/avatar.svelte";
+export { default as ChatBubble } from "../components/shared/other/chatBubble.svelte";
 export { default as Label } from "../components/shared/other/label.svelte";
 export { default as Logo } from "../components/shared/other/logo.svelte";
 export { default as Slider } from "../components/shared/other/slider.svelte";
