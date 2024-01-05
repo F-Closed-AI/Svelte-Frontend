@@ -1,9 +1,25 @@
 <script lang=ts>
     import "../app.css"
     import { page } from "$app/stores";
+    import { getFlash } from "sveltekit-flash-message/client";
     import { Header, Wrapper, Sidebar, TabNavigation, TabNavigationItem } from "$lib/components";
 	import { tabs } from "$lib/stores/tabNavigationStore";
 	import { beforeNavigate } from "$app/navigation";
+    import toast, { Toaster } from "svelte-french-toast";
+    
+
+    const flash = getFlash(page);
+
+    $: if ($flash) {
+        switch ($flash.type) {
+            case "success":
+                toast.success($flash.message);
+                break;
+            case "error":
+                toast.error($flash.message);
+                break;
+        }
+    }
 
     beforeNavigate(() => tabs.set([]));
 </script>
@@ -11,6 +27,8 @@
 <svelte:head>
     <title>ACC</title>
 </svelte:head>
+
+<Toaster></Toaster>
 
 <Wrapper>
     <Header></Header>
