@@ -21,12 +21,26 @@ export interface Room {
     name: string,
     userId: number,
     charId?: string[],
+    labelId?: string[],
     dateTime?: string
 }
 
 export interface Label {
+    id?: string,
+    userId: number,
     name: string,
     color: string
+}
+
+export interface Conversation {
+    id?: string,
+    subject: string,
+    conversationPhrases: ConversationPhrase[]
+}
+
+export interface ConversationPhrase {
+    name: string,
+    content: string
 }
 
 export interface RemainingTime {
