@@ -51,6 +51,14 @@
         @apply text-light-icon-color cursor-pointer transition-colors hover:text-light-icon-hover;
     }
 
+    .text-error {
+        @apply text-light-text-error;
+    }
+
+    .outline-error {
+        @apply outline outline-2 !outline-light-text-error
+    }
+
     .h-fullscreen {
         height: calc(100% - 200px - 1.5rem);
     }
@@ -116,5 +124,9 @@
 
     .max-w-inherit {
         max-width: inherit;
+    }
+
+    .box-shadow {
+        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
     }
 }
