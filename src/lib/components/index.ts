@@ -23,7 +23,6 @@ export { default as PageCreateLabel } from "./page/createLabel.svelte";
     export { default as ModalAddLabel } from "./page/modal/addLabel.svelte";
     export { default as ModalBase } from "./page/modal/base.svelte";
     export { default as ModalConfirmation } from "./page/modal/confirmation.svelte";
-    export { default as ModalStartConversation } from "./page/modal/startConversation.svelte";
     
     // Shared 
     export { default as PageContent } from "../components/page/shared/content.svelte";
