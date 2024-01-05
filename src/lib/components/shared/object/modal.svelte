@@ -8,6 +8,7 @@
 
 {#if showModal}
     <div 
+        role="dialog"
         class="
             fixed
             flex
@@ -22,10 +23,10 @@
             z-50
         "
         on:click|self={() => showModal = false}
-        on:keypress={() => showModal = false}
+        on:keyup|preventDefault
     >
         <div class="bg-light-dashboard-light w-max h-max p-10 rounded-lg sm:w-full sm:h-full">
-            <svelte:component on:click this={$$restProps.content} {...$$restProps}/>
+            <svelte:component on:click this={$$restProps.content}  {...$$restProps}/>
         </div>
     </div>
 {/if}
