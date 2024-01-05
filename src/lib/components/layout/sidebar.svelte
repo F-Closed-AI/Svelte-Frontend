@@ -1,5 +1,5 @@
 <script lang=ts>
-    import { Line, TextSmall, SidebarItem } from "$lib/components";
+    import { Line, TextSmall, SidebarItem, SidebarItemNested } from "$lib/components";
 
     export let page: string = "/";
 </script>
@@ -46,6 +46,19 @@
         >
             <i slot="icon" class="fa-solid fa-warehouse"></i>
             <TextSmall slot="text">Rooms</TextSmall>
+            <div class="mt-2" slot="items">
+                <SidebarItemNested
+                    text="Labels"
+                    link="/rooms/labels"
+                >
+                    <div slot="text">
+                        <TextSmall>Labels</TextSmall>
+                    </div>
+                    <div slot="icon">
+                        <i class="fa-solid fa-tags icon"></i>
+                    </div>
+                </SidebarItemNested>
+            </div>
         </SidebarItem>
     </div>  
     <div>
