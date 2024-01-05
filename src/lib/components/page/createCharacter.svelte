@@ -1,13 +1,15 @@
 <script lang=ts>
     import { sendRequest } from "$lib/functions/api/request.js";
     import { superForm } from "sveltekit-superforms/client";
-	import { ButtonCircle, ButtonPrimary, ButtonSecondary, CardCharacter, Input, LoadingIcon, TextArea, Table, TextSmall, TextXL, Switcher, ActionBar, DraggableList, DraggableItem, PageContent } from "$lib/components";
+	import { ButtonCircle, ButtonPrimary, ButtonSecondary, CardCharacter, Input, LoadingIcon, TextArea, Table, TextSmall, TextXL, Switcher, ActionBar, DraggableList, DraggableItem, PageContent, ModalConfirmation, Modal } from "$lib/components";
     import generated_3 from "$lib/img/generated_3.png";
 	import type { CharacterData, Character, PageCreateCharacter } from "$lib/types";
 	import { tabs, type TabData } from "$lib/stores/tabNavigationStore.js";
 	import { afterNavigate } from "$app/navigation";
     import { convertCharacter, calculateRemainingTime, formatRemainingTime, addS } from "$lib/functions";
 	import { tick } from "svelte";
+	import { getFlash } from "sveltekit-flash-message/client";
+	import { page } from "$app/stores";
 
     export let data: PageCreateCharacter;
     export let state: "create" | "edit" = "create";
@@ -15,12 +17,15 @@
     let loaded: boolean = false;
     let activeTab: number = 0;
     let mobileTabData: TabData[];
+    let showModal = false;
+    let modalProps: {} = {};
 
     let switches: string[] = ["Input", "Output"];
     if (state === "edit") switches.push("Versions");
 
     let hover: { from: number, to: number } = { from: -1, to: -1 };
 
+    let deleteButton: HTMLButtonElement;
     let generateButton: HTMLButtonElement;
     let saveButton: HTMLButtonElement;
     let generating: boolean = false;
@@ -28,16 +33,24 @@
 
     const { form, errors, enhance, constraints } = superForm(data.createCharacterForm);
 
+    const flash = getFlash(page);
+
     const {
         form: outputForm,
         enhance: outputEnhance,
     } = superForm(data.saveCharacterForm);
+
+    const {
+        form: deleteForm,
+        enhance: deleteEnhance,
+    } = superForm(data.deleteCharacterForm);
     
     $: if (data.character) {
         $form.prompt = data.character.prompt;
         $outputForm.name = data.character.name;
         $outputForm.age = data.character.age;
         $outputForm.backStory = data.character.backStory;
+        $deleteForm.charId = data.character.id as string;
         if (data.character.charId) {
             $outputForm.charId = data.character.charId;
         }
@@ -58,7 +71,7 @@
             canSave = true;
             activeTab = 1;
         } catch (error) {
-            console.log((error as Error).message);
+            $flash = { type: "error", message: "Invalid prompt." };
         } finally {
             generating = false;
         }
@@ -82,6 +95,20 @@
         hover = e.detail;
     }
 
+    function deleteCharacter() {
+        modalProps = {
+            content: ModalConfirmation,
+            name: `Delete character (${data.character.name})`,
+            type: "Character",
+            message: "Are you sure you want to delete this character? This action is irreversible, and the character will be marked as deleted forever.",
+            onDelete: () => { 
+                deleteButton.click() 
+                
+            }
+        }
+        showModal = true;
+    }
+
     $: mobileTabData = [
         { 
             icon: `fa-solid fa-circle-notch ${generating && "fa-spin"}`, 
@@ -101,6 +128,10 @@
             }, 
             disabled: !canSave && state !== "edit"
         },
+        { 
+            icon: "fa-solid fa-ban", 
+            onClick: deleteCharacter, 
+        },
     ]
 
     $: tabs.update(() => mobileTabData);
@@ -110,6 +141,12 @@
         loaded = true;
     })
 </script>
+
+<Modal 
+    bind:showModal 
+    {...modalProps}
+    onClose={() => showModal = false} 
+></Modal>
 
 <PageContent>
     <TextXL slot="title" classList="font-semibold">{state === "create" ? "Create Character" : `Edit Character (${data.character.name})`}</TextXL>
@@ -370,6 +407,17 @@
                 </DraggableList>
             </div>
         {/if}
+        {#if state === "edit"}
+            <form
+                method="POST"
+                action="?/delete"
+                use:deleteEnhance
+                hidden
+            >
+                <input type="text" name="charId" bind:value={$deleteForm.charId}>
+                <button bind:this={deleteButton}></button>
+            </form>
+        {/if}
         <ActionBar>
             <ButtonPrimary 
                 classList="
@@ -417,6 +465,22 @@
                     Save
                 </TextSmall>
             </ButtonSecondary>
+            {#if state === "edit"}
+                <ButtonSecondary 
+                    classList="
+                        flex-1
+                        sm:w-full
+                    "
+                    onClick={deleteCharacter}
+                >
+                    <TextSmall classList="
+                        whitespace-nowrap
+                        !font-semibold
+                    ">
+                        <i class="fa-solid fa-ban"></i>
+                    </TextSmall>   
+                </ButtonSecondary>
+            {/if}
         </ActionBar>
     </svelte:fragment>
 </PageContent>
