@@ -1,11 +1,11 @@
 <script lang=ts>
 	import { afterNavigate } from "$app/navigation";
-	import { PageContent, TextXL, Switcher, Input, TextBase, ActionBar, ButtonPrimary, TextSmall, Modal, Avatar, Label, TextDecoration, DraggableList, ModalAddCharacter, ModalAddLabel, DraggableItem, Table, ButtonCircle } from "$lib/components";
+	import { PageContent, TextXL, Switcher, Input, TextBase, ActionBar, ButtonPrimary, TextSmall, Modal, Avatar, Label, TextDecoration, DraggableList, ModalAddCharacter, ModalAddLabel, DraggableItem, Table, ButtonCircle, ButtonSecondary, ModalConfirmation } from "$lib/components";
 	import { tabs, type TabData } from "$lib/stores/tabNavigationStore";
 	import type { Character, PageCreateRoom, Label as LabelType, Room } from "$lib/types";
 	import { tick } from "svelte";
 	import { superForm } from "sveltekit-superforms/client";
-	import { addS, calculateRemainingTime, formatRemainingTime, getRandomImage, sendRequest } from "$lib/functions";
+	import { addS, calculateRemainingTime, formatRemainingTime, getRandomImage, sendRequests } from "$lib/functions";
 
 	export let data: PageCreateRoom;
 	export let state: "create" | "edit" = "create";
@@ -18,26 +18,38 @@
     let currentCharacters: Character[] = [];
     let currentLabels: LabelType[] = [];
 
+    let previousRoom: Room;
+
 	let switches: string[] = ["Input"]
 	if (state === "edit") switches.push("Versions");
 
     let hover: { from: number, to: number } = { from: -1, to: -1 };
-
 	let createButton: HTMLButtonElement;
+    let deleteButton: HTMLButtonElement;
 
 	const { form, errors, enhance, constraints } = superForm(data.createRoomForm, {
-        dataType: 'json'
+        dataType: 'json',
     });
-    $: if (data.room) currentCharacters = data.currentCharacters;
 
-    if (data.room) {
+    const {
+        form: deleteForm,
+        enhance: deleteEnhance,
+    } = superForm(data.deleteRoomForm);
+
+    $: if (previousRoom !== data.room) { 
+        previousRoom = data.room;
         $form.name = data.room.name;
-        if (data.room.roomId) {
-            $form.roomId = data.room.roomId;
-        }
+        currentCharacters = data.currentCharacters;
+        currentLabels = data.currentLabels;
+    }
+
+    if (data.room && data.room.roomId) {
+        $form.roomId = data.room.roomId;
+        $deleteForm.roomId = data.room.id as string;
     }
 
     $: $form.characterIds = currentCharacters.map(c => c.id as string);
+    $: $form.labelIds = currentLabels.map(l => l.id as string);
 
     function onTabChange(e: CustomEvent<{ activeTab: number }>) {
         activeTab = e.detail.activeTab;
@@ -45,8 +57,13 @@
 
     async function onEditButtonClick(version: Room) {
         data.room = version;
-        data.currentCharacters = await sendRequest(`Room/Characters/${data.room.id}`, "GET");
-        history.pushState("", "", `/rooms/edit/${version.id}`);
+        const [characters, labels] = await sendRequests([
+            { url: `Room/Characters/${data.room.id}`, method: "GET" },
+            { url: `Room/Labels/${data.room.id}`, method: "GET" }
+        ]);
+        [data.currentCharacters, data.currentLabels] = [characters as Character[], labels as LabelType[]];
+        [currentCharacters, currentLabels] = [data.currentCharacters, data.currentLabels];
+        history.pushState("", "", `/rooms/edit/${data.room.id}`);
     }
 
     function onDrop(e: CustomEvent<{ from: number, to: number}>) {
@@ -58,6 +75,37 @@
         hover = e.detail;
     }
 
+    function removeCharacter(character: Character) {
+        const index = currentCharacters.findIndex(c => c.id === character.id);
+        if (index !== -1) {
+            currentCharacters.splice(index, 1);
+        } else {
+            currentCharacters.push(character);
+        }
+        currentCharacters = currentCharacters;
+    }
+
+    function removeLabel(label: LabelType) {
+        const index = currentLabels.findIndex(l => l.id === label.id);
+        if (index !== -1) {
+            currentLabels.splice(index, 1);
+        } else {
+            currentLabels.push(label);
+        }
+        currentLabels = currentLabels;
+    }
+
+    function deleteRoom() {
+        modalProps = {
+            content: ModalConfirmation,
+            name: `Delete room (${data.room.name})`,
+            type: "Room",
+            message: "Are you sure you want to delete this room? This action is irreversible, and the room will be marked as deleted forever.",
+            onDelete: () => deleteButton.click()
+        }
+        showModal = true;
+    }
+
 	$: mobileTabData = [
         { 
             icon: "fa-solid fa-floppy-disk", 
@@ -66,6 +114,10 @@
                 await tick();
                 createButton.click()
             }, 
+        },
+        { 
+            icon: "fa-solid fa-ban", 
+            onClick: deleteRoom, 
         },
     ]
 
@@ -107,7 +159,7 @@
 				method="POST"
 				action="?/create"
                 use:enhance
-			>
+            >
                 <Input
                     classList="!bg-light-background"
                     type="text"
@@ -148,9 +200,7 @@
                                     content: ModalAddCharacter,
                                     allCharacters: data.allCharacters,
                                     currentCharacters: currentCharacters,
-                                    onAdd: () => { 
-                                        currentCharacters = currentCharacters
-                                    },
+                                    onAdd: removeCharacter,
                                 }
 
                                 showModal = true;
@@ -161,17 +211,42 @@
                     </div>
                     <div class="
                         flex
-                        gap-4
+                        flex-wrap
+                        gap-5
                     ">
                         {#each currentCharacters as character}
-                            <Avatar 
-                                classList="
-                                    h-28
-                                    w-28
-                                " 
-                                image={getRandomImage()} 
-                                alt={character.name}
-                            ></Avatar>
+                            <button 
+                                class="
+                                    relative
+                                    group
+                                "
+                                title={character.name} 
+                                on:click={() => removeCharacter(character)}
+                            >
+                                <div class="
+                                    flex
+                                    items-center
+                                    justify-center
+                                    absolute
+                                    w-full
+                                    h-full
+                                    rounded-full
+                                    bg-light-btn-primary-background
+                                    opacity-0
+                                    transition-opacity
+                                    group-hover:opacity-80
+                                ">
+                                    <i class="fa-solid fa-xmark text-light-text-tertiary"></i>
+                                </div>
+                                <Avatar 
+                                    classList="
+                                        h-28
+                                        w-28
+                                    " 
+                                    image={getRandomImage()} 
+                                    alt={character.name}
+                                ></Avatar>
+                            </button>
                         {/each}
                     </div>
                     <input bind:value={$form.characterIds} name="characterIds" hidden>
@@ -191,7 +266,7 @@
                             <TextBase 
                                 classList="!font-medium"
                             >
-                                Labels ({$form.labels.length})
+                                Labels ({$form.labelIds.length})
                             </TextBase>
                         </label>
                         <TextDecoration 
@@ -204,8 +279,9 @@
 
                                 modalProps = {
                                     content: ModalAddLabel,
+                                    allLabels: data.allLabels,
                                     currentLabels: currentLabels,
-                                    onAdd: () => currentLabels = currentLabels,
+                                    onAdd: removeLabel
                                 }
 
                                 showModal = true;
@@ -216,21 +292,39 @@
                     </div>
                     <div class="
                         flex
+                        flex-wrap
                         gap-4
                     ">
-                        {#each $form.labels as label}
-                            <Label color={label.color}>
-                                <TextSmall 
-                                    classList="
-                                        !font-medium 
-                                        text-light-text-tertiary
+                        {#each currentLabels as label}
+                            <button class="relative group lg:flex-1" title={label.name} on:click|preventDefault={() => removeLabel(label)}>
+                                <div class="
+                                    flex
+                                    items-center
+                                    justify-center
+                                    absolute
+                                    w-full
+                                    h-full
+                                    rounded-full
+                                    bg-light-btn-primary-background
+                                    opacity-0
+                                    transition-opacity
+                                    group-hover:opacity-80
+                                ">
+                                    <i class="fa-solid fa-xmark text-light-text-tertiary"></i>
+                                </div>
+                                <Label classList="lg:w-full" color={label.color}>
+                                    <TextSmall 
+                                        classList="
+                                            !font-medium 
+                                            text-light-text-tertiary
                                     ">
-                                        {label.name}
+                                            {label.name}
                                     </TextSmall>
-                            </Label>
+                                </Label>
+                            </button>
                         {/each}
                     </div>
-                    <input bind:value={$form.labels} name="labels" hidden>
+                    <input bind:value={$form.labelIds} name="labelIds" hidden>
                 </div>
                 <input 
                     type="text"
@@ -240,7 +334,7 @@
                 >
 				<button bind:this={createButton} hidden></button>
 			</form>
-            {:else}
+        {:else}
             <div class="
                 flex
                 flex-col
@@ -253,7 +347,7 @@
                             border-separate
                             border-spacing-y-[1rem]
                         "
-                        columns={["Name", "Characters", "Created"]}
+                        columns={["Name", "Characters", "Labels", "Created"]}
                     >
                         {#each data.versions as version, index}
                             <DraggableItem 
@@ -285,6 +379,12 @@
                                     bg-inherit
                                 ">
                                     <TextSmall classList="!font-medium">{version.charId?.length}</TextSmall>
+                                </td>
+                                <td class="
+                                    pr-10
+                                    bg-inherit
+                                ">
+                                    <TextSmall classList="!font-medium">{version.labelId?.length}</TextSmall>
                                 </td>
                                 <td class="
                                     bg-inherit
@@ -350,6 +450,7 @@
                                     >
                                         <TextSmall classList="!font-medium">{version.name}</TextSmall>
                                         <TextSmall classList="!font-medium">{version.charId?.length}</TextSmall>
+                                        <TextSmall classList="!font-medium">{version.labelId?.length}</TextSmall>
                                         <TextSmall classList="!font-medium">
                                             {
                                                 version.dateTime
@@ -379,6 +480,17 @@
                 </DraggableList>
             </div>
         {/if}
+        {#if state === "edit"}
+            <form
+                method="POST"
+                action="?/delete"
+                use:deleteEnhance
+                hidden
+            >
+                <input type="text" name="roomId" bind:value={$deleteForm.roomId}>
+                <button bind:this={deleteButton}></button>
+            </form>
+        {/if}
         <ActionBar>
             <ButtonPrimary 
                 classList="
@@ -398,6 +510,22 @@
                     {state !== "edit" ? "Create Room" : "Save"}
                 </TextSmall>   
             </ButtonPrimary>
+            {#if state === "edit"}
+                <ButtonSecondary 
+                    classList="
+                        flex-1
+                        sm:w-full
+                    "
+                    onClick={deleteRoom}
+                >
+                    <TextSmall classList="
+                        whitespace-nowrap
+                        !font-semibold
+                    ">
+                        Delete
+                    </TextSmall>   
+                </ButtonSecondary>
+            {/if}
         </ActionBar>
 	</svelte:fragment>
 </PageContent>
