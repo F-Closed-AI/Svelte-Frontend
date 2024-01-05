@@ -22,7 +22,9 @@
         class="
             {baseClasses}
             {classList}
-    ">
+        "
+        data-sveltekit-preload-data
+    >
         <slot/>
     </a>
 {:else}
