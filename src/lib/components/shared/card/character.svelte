@@ -4,22 +4,27 @@
     export let classList: string = "";
     export let imgClassList: string = "";
     export let img: string = "";
+    export let title: string = "";
     export let showType: "grid" | "lines" | "slider" = "slider";
 </script>
 
 <a 
     href={link}
     class="
+        relative
         flex
         gap-10
         flex-shrink-0
         overflow-hidden
         group
         rounded-xl
+        cursor-default
         {showType === "grid" && "xs:flex-grow"}
         {showType === "lines" && "w-full lg:flex-col lg:bg-light-dashboard-dark lg:gap-0 lg:rounded-3xl"}
         {classList}
     "
+    title={title}
+    data-sveltekit-preload-data
 >
     {#if img && !skeleton}
         <img 
@@ -59,5 +64,7 @@
         ">
             <slot></slot>
         </div>
+    {:else}
+        <slot name="cta"></slot>
     {/if}
 </a>
