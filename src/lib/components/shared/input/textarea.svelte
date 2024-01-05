@@ -7,16 +7,19 @@
     export let label: string = "";
     export let value: string = "";
     export let error: string[] | any = [];
+    export let disabled: boolean = false;
     export let onInput: (event: Event) => void = () => {};
 </script>
 
-<div class="
-    flex
-    flex-col
-    gap-2
-    w-full
-    {classList}
-">
+<div 
+    class="
+        flex
+        flex-col
+        gap-2
+        w-full
+        {classList}
+    "
+>
     <label for={$$props.name}>
         <TextBase classList="!font-medium">{label}</TextBase>
     </label>
@@ -54,6 +57,7 @@
             bind:value={value}
             on:input={onInput}
             {...$$props}
+            readonly={disabled}
         ></textarea>
     </div>
 </div>
