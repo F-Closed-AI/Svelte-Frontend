@@ -43,7 +43,8 @@ npm install
 # Start the application
 npm run dev
 
-## Project Structure```
+## Project Structure
+```
 
 ```bash
 ├── /src                  # Source code
@@ -67,7 +68,8 @@ npm run dev
 ├── package.json          # Node.js package file
 ├── README.md             # Project README
 ├── svelte.config.js      # SvelteKit configuration
-└── tailwind.config.js    # Tailwind CSS configuration```
+└── tailwind.config.js    # Tailwind CSS configuration
+```
 
 ## License
 
