@@ -43,8 +43,8 @@ npm install
 # Start the application
 npm run dev
 
-## Project Structure
 ```
+## Project Structure
 
 ```bash
 ├── /src                  # Source code
